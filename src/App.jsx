@@ -9,6 +9,7 @@ import { createBuildings } from "./components/Buildings.jsx";
 import { FirecrackerSystem } from "./components/FirecrackerSystem.jsx";
 import HUD from "./components/HUD.jsx";
 import MobileControls from "./components/MobileControls.jsx";
+import { createBalloons, createPlanets } from "./components/AtmosphereAdditions.jsx";
 
 export default function App() {
   const mountRef = useRef(null);
@@ -48,6 +49,12 @@ export default function App() {
     // 🌌 WORLD
     const sky = createOuterSky();
     scene.add(sky);
+
+    const balloons = createBalloons();
+    scene.add(balloons);
+
+    const planets = createPlanets();
+    scene.add(planets);
 
     const floor = createNeonFloor();
     scene.add(floor);
@@ -338,6 +345,8 @@ export default function App() {
       sky.userData.update?.(t, delta, char.position);
       floor.userData.update?.(t, char.position);
       buildingsGroup.userData.update?.(t);
+      balloons.userData.update?.(t);
+      planets.userData.update?.(t);
       
       firecrackers.update(delta, char.position, () => {
         firecrackerCount++;
