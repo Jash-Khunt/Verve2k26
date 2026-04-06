@@ -18,16 +18,17 @@ export function createBuildings() {
 
     let mesh;
     // Distinct shapes based on type
-    if (type === "arena") {
+    if (type === "headlines") {
         mesh = new THREE.Mesh(new THREE.CylinderGeometry(scale, scale+2, scale*1.5, 16), material);
         mesh.position.y = scale*0.75;
-    } else if (type === "hub") {
+    } else if (type === "theme") {
         mesh = new THREE.Mesh(new THREE.BoxGeometry(scale*1.5, scale*1.2, scale*1.5), material);
         mesh.position.y = scale*0.6;
-    } else if (type === "workshop") {
+    } else if (type === "about") {
+        // Octahedron looks like a floating diamond or jewel
         mesh = new THREE.Mesh(new THREE.OctahedronGeometry(scale, 1), material);
         mesh.position.y = scale;
-    } else { // stage
+    } else { // history
         mesh = new THREE.Mesh(new THREE.TorusKnotGeometry(scale*0.6, scale*0.2, 64, 16), material);
         mesh.position.y = scale*1.2;
     }
@@ -60,7 +61,7 @@ export function createBuildings() {
     const collisionMat = new THREE.MeshBasicMaterial({ visible: false });
     const collisionMesh = new THREE.Mesh(collisionGeo, collisionMat);
     collisionMesh.position.y = scale;
-    collisionMesh.userData = { isBuilding: true, title, desc, action, color: trimColor };
+    collisionMesh.userData = { isBuilding: true, title, desc, action, color: trimColor, type: title.toLowerCase().split(" ")[0] };
     bGroup.add(collisionMesh);
     interactableMeshes.push(collisionMesh);
 
@@ -77,7 +78,7 @@ export function createBuildings() {
       holo.rotation.x += 0.01;
       holo.position.y = scale * 2.2 + Math.sin(t * 3) * 0.5;
       
-      if(type === "stage" || type === "workshop") {
+      if(type === "history" || type === "about") {
         mesh.rotation.y += 0.005;
       }
     };
@@ -85,29 +86,28 @@ export function createBuildings() {
     return bGroup;
   };
 
-  // Spread buildings inside the 108x108 map [-50 to 50 boundaries roughly]
   const b1 = createBuilding(
     0xff0044, 0xffaacc, 
-    "Events Arena", "Join the biggest tech talks and keynote sessions right here.", "Explore Events", 
-    -35, 45, 10, "arena"
+    "Headlines", "Breaking news, highlighted events, and the latest buzz.", "Read Headlines", 
+    -35, 45, 10, "headlines"
   );
   
   const b2 = createBuilding(
     0x0055ff, 0xaaccff, 
-    "Workshops & Learning", "Hands-on coding, design, and hardware workshops.", "Register Now", 
-    35, 20, 9, "workshop"
+    "Theme", "A VORTEX OF VANDALISM.", "Explore Theme", 
+    35, 20, 9, "theme"
   );
 
   const b3 = createBuilding(
     0x00aa44, 0xccffcc, 
-    "Competitions Hub", "Compete with the best minds in hackathons and coding battles.", "Start Hacking", 
-    -40, -20, 11, "hub"
+    "About Us", "We are the visionaries breaking bounds.", "Learn More", 
+    -40, -20, 11, "about"
   );
 
   const b4 = createBuilding(
     0xaa00cc, 0xeebbee, 
-    "Concert Stage", "Pro shows, DJ nights, and cultural performances.", "Get Tickets", 
-    40, -45, 12, "stage"
+    "History", "From the archives to the modern era, our journey.", "View Archives", 
+    40, -45, 12, "history"
   );
 
   group.add(b1, b2, b3, b4);

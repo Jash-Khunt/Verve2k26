@@ -62,7 +62,7 @@ export default function App() {
 
     // 🎮 MOVEMENT
     const movement = { left: false, right: false, up: false, down: false };
-    const speed = 15; // Slightly faster for bigger map
+    const speed = 15; 
     const clock = new THREE.Clock();
 
     // 🏃 JUMP MECHANICS
@@ -83,8 +83,13 @@ export default function App() {
     let lastX = 0;
     let lastY = 0;
 
+    const onContextMenu = (e) => {
+        e.preventDefault(); // Prevent right click menu
+    }
+
     const onPointerDown = (e) => {
       if (e.target.tagName !== "CANVAS") return;
+      if (e.button !== 2 && e.button !== 0) return; // Allow left or right click to drag
       isDragging = true;
       lastX = e.clientX;
       lastY = e.clientY;
@@ -112,7 +117,6 @@ export default function App() {
       }
     };
 
-    // State for interaction
     window.currentPromptObj = null;
 
     const interactWithBuilding = () => {
@@ -122,7 +126,7 @@ export default function App() {
         
         const dx = char.position.x - bPos.x;
         const dz = char.position.z - bPos.z;
-        const targetAzimuthAngle = Math.atan2(dx, dz) + Math.PI;
+        const targetAzimuthAngle = Math.atan2(dx, dz);
 
         gsap.to(cameraOffset, {
            azimuth: targetAzimuthAngle,
@@ -139,38 +143,26 @@ export default function App() {
       }
     };
 
-    // ⌨️ KEYS
-    const onKeyDown = (e) => {
-      if (e.key === "a" || e.key === "ArrowLeft") movement.left = true;
-      if (e.key === "d" || e.key === "ArrowRight") movement.right = true;
-      if (e.key === "w" || e.key === "ArrowUp") movement.up = true;
-      if (e.key === "s" || e.key === "ArrowDown") movement.down = true;
-      if (e.key === " ") triggerJump();
-      if (e.key.toLowerCase() === "e") interactWithBuilding();
+    let isAutoWalking = false;
+    let autoWalkTarget = null;
+    let autoWalkBuildingMesh = null;
+
+    const handleNav = (e) => {
+      const typeStr = e.detail.toLowerCase();
+      const bObj = buildingsGroup.userData.interactables.find(b => b.userData.title.toLowerCase() === typeStr);
+      if (bObj) {
+         autoWalkBuildingMesh = bObj;
+         autoWalkTarget = new THREE.Vector3();
+         bObj.getWorldPosition(autoWalkTarget);
+         isAutoWalking = true;
+         
+         const dx = char.position.x - autoWalkTarget.x;
+         const dz = char.position.z - autoWalkTarget.z;
+         targetAzimuth = Math.atan2(dx, dz);
+         cameraOffset.azimuth = targetAzimuth;
+      }
     };
 
-    const onKeyUp = (e) => {
-      if (e.key === "a" || e.key === "ArrowLeft") movement.left = false;
-      if (e.key === "d" || e.key === "ArrowRight") movement.right = false;
-      if (e.key === "w" || e.key === "ArrowUp") movement.up = false;
-      if (e.key === "s" || e.key === "ArrowDown") movement.down = false;
-    };
-
-    window.addEventListener("keydown", onKeyDown);
-    window.addEventListener("keyup", onKeyUp);
-    renderer.domElement.addEventListener("pointerdown", onPointerDown);
-    renderer.domElement.addEventListener("pointermove", onPointerMove);
-    renderer.domElement.addEventListener("pointerup", onPointerUp);
-
-    // 📱 REACT CUSTOM EVENTS listeners
-    const handleJoystick = (e) => {
-      const { x, y } = e.detail;
-      movement.left = x < -0.2;
-      movement.right = x > 0.2;
-      movement.up = y < -0.2;
-      movement.down = y > 0.2;
-    };
-    const handleJumpEvent = () => triggerJump();
     const handleLaunch = () => {
       if (firecrackerCount > 0) {
         firecrackerCount--;
@@ -183,15 +175,50 @@ export default function App() {
         firecrackers.launch(char.position.clone(), camDir);
       }
     };
-    
+
+    // ⌨️ KEYS
+    const onKeyDown = (e) => {
+      isAutoWalking = false;
+      if (e.key === "a" || e.key === "ArrowLeft") movement.left = true;
+      if (e.key === "d" || e.key === "ArrowRight") movement.right = true;
+      if (e.key === "w" || e.key === "ArrowUp") movement.up = true;
+      if (e.key === "s" || e.key === "ArrowDown") movement.down = true;
+      if (e.key === " ") triggerJump();
+      if (e.key.toLowerCase() === "e") interactWithBuilding();
+      if (e.key.toLowerCase() === "f") handleLaunch();
+    };
+
+    const onKeyUp = (e) => {
+      if (e.key === "a" || e.key === "ArrowLeft") movement.left = false;
+      if (e.key === "d" || e.key === "ArrowRight") movement.right = false;
+      if (e.key === "w" || e.key === "ArrowUp") movement.up = false;
+      if (e.key === "s" || e.key === "ArrowDown") movement.down = false;
+    };
+
+    window.addEventListener("keydown", onKeyDown);
+    window.addEventListener("keyup", onKeyUp);
+    window.addEventListener("contextmenu", onContextMenu);
+    renderer.domElement.addEventListener("pointerdown", onPointerDown);
+    renderer.domElement.addEventListener("pointermove", onPointerMove);
+    renderer.domElement.addEventListener("pointerup", onPointerUp);
+
+    const handleJoystick = (e) => {
+      isAutoWalking = false;
+      const { x, y } = e.detail;
+      movement.left = x < -0.2;
+      movement.right = x > 0.2;
+      movement.up = y < -0.2;
+      movement.down = y > 0.2;
+    };
+    const handleJumpEvent = () => triggerJump();
     const handleMobileInteract = () => interactWithBuilding();
 
     window.addEventListener("moveJoystick", handleJoystick);
     window.addEventListener("jump", handleJumpEvent);
     window.addEventListener("launchFirecracker", handleLaunch);
     window.addEventListener("triggerInteract", handleMobileInteract);
+    window.addEventListener("navigateToBuilding", handleNav);
 
-    // 🎬 LOOP
     function animate() {
       requestAnimationFrame(animate);
       const delta = Math.min(clock.getDelta(), 0.05);
@@ -205,7 +232,6 @@ export default function App() {
 
       const isMoving = moveX !== 0 || moveZ !== 0;
 
-      // Physics/Jump
       if (!isGrounded) {
         velocityY += gravity * delta;
         char.position.y += velocityY * delta;
@@ -219,8 +245,24 @@ export default function App() {
       cameraOffset.azimuth += (targetAzimuth - cameraOffset.azimuth) * 0.1;
       cameraOffset.polar += (targetPolar - cameraOffset.polar) * 0.1;
 
-      let worldMove = new THREE.Vector3();
-      if (isMoving) {
+      if (isAutoWalking && autoWalkTarget) {
+          const dist = char.position.distanceTo(autoWalkTarget);
+          if (dist > 18) {
+              const dir = new THREE.Vector3().subVectors(autoWalkTarget, char.position);
+              dir.y = 0;
+              dir.normalize();
+              char.position.addScaledVector(dir, speed * delta * 1.5);
+              const targetRot = Math.atan2(dir.x, -dir.z);
+              char.rotation.y += (targetRot - char.rotation.y) * 0.15;
+              const dx = char.position.x - autoWalkTarget.x;
+              const dz = char.position.z - autoWalkTarget.z;
+              targetAzimuth = Math.atan2(dx, dz);
+          } else {
+              isAutoWalking = false;
+              window.currentPromptObj = autoWalkBuildingMesh;
+              window.dispatchEvent(new CustomEvent("showInteractionPrompt", { detail: autoWalkBuildingMesh.userData.title }));
+          }
+      } else if (isMoving) {
         const inputDir = new THREE.Vector3(moveX, 0, moveZ).normalize();
         const camDir = new THREE.Vector3();
         camera.getWorldDirection(camDir);
@@ -230,23 +272,20 @@ export default function App() {
         const camRight = new THREE.Vector3();
         camRight.crossVectors(camDir, new THREE.Vector3(0, 1, 0)).normalize();
 
+        let worldMove = new THREE.Vector3();
         worldMove.copy(camDir).multiplyScalar(inputDir.z);
         worldMove.addScaledVector(camRight, inputDir.x);
         worldMove.normalize();
 
         char.position.addScaledVector(worldMove, speed * delta);
-        
-        // Bounds checking so character doesn't fall off infinity - restrict to the 108x108 neon board
         char.position.x = THREE.MathUtils.clamp(char.position.x, -50, 50);
         char.position.z = THREE.MathUtils.clamp(char.position.z, -50, 50);
-        
         const targetRot = Math.atan2(worldMove.x, -worldMove.z);
         char.rotation.y += (targetRot - char.rotation.y) * 0.15;
       }
 
-      // Proximity check for Interaction Prompt
       let closestBuilding = null;
-      let minDistance = 25; // Interaction radius
+      let minDistance = 25; 
 
       for(let i=0; i<buildingsGroup.userData.interactables.length; i++) {
          const b = buildingsGroup.userData.interactables[i];
@@ -267,7 +306,7 @@ export default function App() {
             window.dispatchEvent(new CustomEvent("showInteractionPrompt", { detail: closestBuilding.userData.title }));
          }
       } else {
-         if (window.currentPromptObj) {
+         if (!isAutoWalking && window.currentPromptObj) {
             window.currentPromptObj = null;
             window.dispatchEvent(new CustomEvent("hideInteractionPrompt"));
          }
@@ -301,6 +340,7 @@ export default function App() {
       billboard.animationTimeline?.kill?.();
       window.removeEventListener("keydown", onKeyDown);
       window.removeEventListener("keyup", onKeyUp);
+      window.removeEventListener("contextmenu", onContextMenu);
       renderer.domElement.removeEventListener("pointerdown", onPointerDown);
       renderer.domElement.removeEventListener("pointermove", onPointerMove);
       renderer.domElement.removeEventListener("pointerup", onPointerUp);
@@ -309,6 +349,7 @@ export default function App() {
       window.removeEventListener("jump", handleJumpEvent);
       window.removeEventListener("launchFirecracker", handleLaunch);
       window.removeEventListener("triggerInteract", handleMobileInteract);
+      window.removeEventListener("navigateToBuilding", handleNav);
       mountRef.current.removeChild(renderer.domElement);
     };
   }, []);

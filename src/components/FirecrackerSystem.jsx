@@ -14,10 +14,13 @@ export class FirecrackerSystem {
   spawnFirecracker() {
     const group = new THREE.Group();
     
-    // Make them bigger and brighter to be seen
+    // Exclude red (0 and 1), keeping hues perfectly between yellow, blue, and purple
+    const safeHue = 0.15 + (Math.random() * 0.7);
+    const stickColor = new THREE.Color().setHSL(safeHue, 1, 0.5);
+
     const stick = new THREE.Mesh(
       new THREE.CylinderGeometry(0.2, 0.2, 2, 8),
-      new THREE.MeshStandardMaterial({ color: 0xff1155, roughness: 0.2, metalness: 0.5 })
+      new THREE.MeshStandardMaterial({ color: stickColor, roughness: 0.2, metalness: 0.5 })
     );
     group.add(stick);
 
@@ -41,9 +44,13 @@ export class FirecrackerSystem {
   }
 
   launch(startPos, camDir) {
+    // Exclude red (0 and 1), keeping hues perfectly between yellow, blue, and purple
+    const safeHue = 0.15 + (Math.random() * 0.7);
+    const launchColor = new THREE.Color().setHSL(safeHue, 1, 0.5);
+
     const rocket = new THREE.Mesh(
       new THREE.CylinderGeometry(0.2, 0.2, 2, 8),
-      new THREE.MeshStandardMaterial({ color: 0xff3333, emissive: 0xff0000 })
+      new THREE.MeshStandardMaterial({ color: launchColor, emissive: launchColor, emissiveIntensity: 0.8 })
     );
     
     // Start slightly in front of the character at chest/head height
