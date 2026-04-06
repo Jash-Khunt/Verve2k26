@@ -5,6 +5,7 @@ export default function HUD() {
   const [firecrackers, setFirecrackers] = useState(0);
   const [activeBuilding, setActiveBuilding] = useState(null);
   const [promptText, setPromptText] = useState(null);
+  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
   useEffect(() => {
     const handleFirecracker = (e) => setFirecrackers(e.detail);
@@ -122,7 +123,21 @@ export default function HUD() {
           <a href="#">Sponsors</a>
           <a href="#">Contact Us</a>
         </div>
+        <div className={`hamburger ${mobileMenuOpen ? "active" : ""}`} onClick={() => setMobileMenuOpen(!mobileMenuOpen)}>
+            <span></span>
+            <span></span>
+            <span></span>
+        </div>
       </div>
+
+      {mobileMenuOpen && (
+          <div className="mobile-menu-overlay glass">
+              <a href="#" onClick={() => setMobileMenuOpen(false)}>Schedule</a>
+              <a href="#" onClick={() => setMobileMenuOpen(false)}>Events</a>
+              <a href="#" onClick={() => setMobileMenuOpen(false)}>Sponsors</a>
+              <a href="#" onClick={() => setMobileMenuOpen(false)}>Contact Us</a>
+          </div>
+      )}
 
       {/* Modern Game Controls Panel */}
       <div className="instructions-panel game-theme-panel">

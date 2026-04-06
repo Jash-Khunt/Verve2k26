@@ -28,7 +28,15 @@ export default function App() {
     renderer.setSize(window.innerWidth, window.innerHeight);
     renderer.setPixelRatio(window.devicePixelRatio);
     renderer.setClearColor(0x04050b);
+    renderer.domElement.style.touchAction = "none";
     mountRef.current.appendChild(renderer.domElement);
+
+    const handleResize = () => {
+      camera.aspect = window.innerWidth / window.innerHeight;
+      camera.updateProjectionMatrix();
+      renderer.setSize(window.innerWidth, window.innerHeight);
+    };
+    window.addEventListener("resize", handleResize);
 
     // 🌟 LIGHTS
     scene.add(new THREE.AmbientLight(0x8892ff, 0.4));
@@ -89,25 +97,31 @@ export default function App() {
 
     const onPointerDown = (e) => {
       if (e.target.tagName !== "CANVAS") return;
-      if (e.button !== 2 && e.button !== 0) return; // Allow left or right click to drag
+      if (e.button !== 2 && e.button !== 0 && e.pointerType !== "touch") return; // Allow left or right click to drag
       isDragging = true;
+      renderer.domElement.setPointerCapture(e.pointerId);
       lastX = e.clientX;
       lastY = e.clientY;
     };
 
     const onPointerMove = (e) => {
       if (!isDragging) return;
+      
+      const isTouch = e.pointerType === "touch" || window.innerWidth < 768;
+      const sensitivity = isTouch ? 0.015 : 0.005; // highly responsive on phone
+
       const dx = e.clientX - lastX;
       const dy = e.clientY - lastY;
-      targetAzimuth -= dx * 0.005;
-      targetPolar += dy * 0.005;
+      targetAzimuth -= dx * sensitivity;
+      targetPolar += dy * sensitivity;
       targetPolar = THREE.MathUtils.clamp(targetPolar, 0.05, Math.PI / 2 - 0.2);
       lastX = e.clientX;
       lastY = e.clientY;
     };
 
-    const onPointerUp = () => {
+    const onPointerUp = (e) => {
       isDragging = false;
+      renderer.domElement.releasePointerCapture(e.pointerId);
     };
 
     const triggerJump = () => {
@@ -350,6 +364,7 @@ export default function App() {
       window.removeEventListener("launchFirecracker", handleLaunch);
       window.removeEventListener("triggerInteract", handleMobileInteract);
       window.removeEventListener("navigateToBuilding", handleNav);
+      window.removeEventListener("resize", handleResize);
       mountRef.current.removeChild(renderer.domElement);
     };
   }, []);

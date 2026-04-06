@@ -82,11 +82,6 @@ export default function MobileControls() {
         onTouchEnd={handleTouchEnd}
       >
         <div className="joystick-stick" ref={joyRef}></div>
-        {showTutorial && (
-          <div className="tutorial-hand pulse">
-            👆 Drag to Move
-          </div>
-        )}
       </div>
 
       {/* Jump Button */}
