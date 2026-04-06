@@ -1,0 +1,19 @@
+html, body, #root {
+  width: 100%;
+  height: 100%;
+  margin: 0;
+  padding: 0;
+  overflow: hidden;
+  background: #020309;
+  color: #ffffff;
+  font-family: Inter, system-ui, sans-serif;
+}
+
+body {
+  background: radial-gradient(circle at top, rgba(72, 70, 170, 0.18), transparent 35%),
+    linear-gradient(180deg, #020309 0%, #04050b 80%);
+}
+
+* {
+  box-sizing: border-box;
+}
