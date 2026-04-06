@@ -85,11 +85,11 @@ export function createBuildings() {
     return bGroup;
   };
 
-  // Spread buildings wide through the map and make them colorful
+  // Spread buildings inside the 108x108 map [-50 to 50 boundaries roughly]
   const b1 = createBuilding(
     0xff0044, 0xffaacc, 
     "Events Arena", "Join the biggest tech talks and keynote sessions right here.", "Explore Events", 
-    -35, 60, 10, "arena"
+    -35, 45, 10, "arena"
   );
   
   const b2 = createBuilding(
@@ -107,7 +107,7 @@ export function createBuildings() {
   const b4 = createBuilding(
     0xaa00cc, 0xeebbee, 
     "Concert Stage", "Pro shows, DJ nights, and cultural performances.", "Get Tickets", 
-    40, -60, 12, "stage"
+    40, -45, 12, "stage"
   );
 
   group.add(b1, b2, b3, b4);

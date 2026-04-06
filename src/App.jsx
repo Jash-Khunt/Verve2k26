@@ -175,7 +175,12 @@ export default function App() {
       if (firecrackerCount > 0) {
         firecrackerCount--;
         window.dispatchEvent(new CustomEvent("updateFirecracker", { detail: firecrackerCount }));
-        firecrackers.launch(char.position.clone());
+        
+        let camDir = new THREE.Vector3();
+        camera.getWorldDirection(camDir);
+        camDir.normalize();
+
+        firecrackers.launch(char.position.clone(), camDir);
       }
     };
     
@@ -231,9 +236,9 @@ export default function App() {
 
         char.position.addScaledVector(worldMove, speed * delta);
         
-        // Bounds checking so character doesn't fall off infinity
-        char.position.x = THREE.MathUtils.clamp(char.position.x, -95, 95);
-        char.position.z = THREE.MathUtils.clamp(char.position.z, -195, 195);
+        // Bounds checking so character doesn't fall off infinity - restrict to the 108x108 neon board
+        char.position.x = THREE.MathUtils.clamp(char.position.x, -50, 50);
+        char.position.z = THREE.MathUtils.clamp(char.position.z, -50, 50);
         
         const targetRot = Math.atan2(worldMove.x, -worldMove.z);
         char.rotation.y += (targetRot - char.rotation.y) * 0.15;

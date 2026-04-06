@@ -28,9 +28,9 @@ export class FirecrackerSystem {
     spark.position.y = 1.2;
     group.add(spark);
 
-    // Random X and Z across the entire large map platform
-    const x = (Math.random() - 0.5) * 100;
-    const z = (Math.random() - 0.5) * 200;
+    // Random X and Z strictly within the neon platform (108x108)
+    const x = (Math.random() - 0.5) * 90; // within -45 to 45
+    const z = (Math.random() - 0.5) * 90; // within -45 to 45
     group.position.set(x, 1.5, z);
     
     // Slight tilt
@@ -40,18 +40,24 @@ export class FirecrackerSystem {
     this.spawnables.push({ mesh: group, age: 0 });
   }
 
-  launch(startPos) {
+  launch(startPos, camDir) {
     const rocket = new THREE.Mesh(
       new THREE.CylinderGeometry(0.2, 0.2, 2, 8),
       new THREE.MeshStandardMaterial({ color: 0xff3333, emissive: 0xff0000 })
     );
-    rocket.position.copy(startPos);
-    rocket.position.y += 1;
     
-    // Random target arc
+    // Start slightly in front of the character at chest/head height
+    const offset = camDir.clone().multiplyScalar(2);
+    rocket.position.copy(startPos).add(offset);
+    rocket.position.y = 2.5; 
+    
+    // Shoot straight forward horizontally (like a fireball)
+    const forwardArc = camDir.clone().multiplyScalar(45); // Fast horizontal speed
+    const velocity = new THREE.Vector3(forwardArc.x, 0, forwardArc.z); // Zero Y velocity
+
     rocket.userData = {
-      velocity: new THREE.Vector3((Math.random()-0.5)*10, 25, (Math.random()-0.5)*10),
-      life: 2.0, // Time until explosion
+      velocity: velocity,
+      life: 1.0, // Time until explosion
     };
 
     this.scene.add(rocket);
@@ -59,7 +65,7 @@ export class FirecrackerSystem {
   }
 
   createExplosion(pos) {
-    const particleCount = 200;
+    const particleCount = 300;
     const geometry = new THREE.BufferGeometry();
     const positions = new Float32Array(particleCount * 3);
     const colors = new Float32Array(particleCount * 3);
@@ -77,9 +83,9 @@ export class FirecrackerSystem {
       colors[i * 3 + 2] = baseColor.b + (Math.random() * 0.2 - 0.1);
 
       velocities.push(new THREE.Vector3(
-        (Math.random() - 0.5) * 30,
-        (Math.random() - 0.5) * 30,
-        (Math.random() - 0.5) * 30
+        (Math.random() - 0.5) * 40,
+        (Math.random() - 0.5) * 40,
+        (Math.random() - 0.5) * 40
       ));
     }
 
@@ -87,7 +93,7 @@ export class FirecrackerSystem {
     geometry.setAttribute('color', new THREE.BufferAttribute(colors, 3));
     
     const material = new THREE.PointsMaterial({
-      size: 0.5,
+      size: 0.8,
       vertexColors: true,
       transparent: true,
       opacity: 1,
@@ -106,7 +112,7 @@ export class FirecrackerSystem {
     this.scene.add(flash);
     setTimeout(() => {
       this.scene.remove(flash);
-    }, 300);
+    }, 400);
   }
 
   update(delta, charPos, onCollect) {
@@ -133,7 +139,7 @@ export class FirecrackerSystem {
         onCollect();
       }
       // Despawn if it's very old we recycle them so it feels dynamic
-      else if (fcObj.age > 60) {
+      else if (fcObj.age > 40) {
         this.scene.remove(fc);
         this.spawnables.splice(i, 1);
       }
@@ -143,7 +149,7 @@ export class FirecrackerSystem {
     for (let i = this.activeRockets.length - 1; i >= 0; i--) {
       const rocket = this.activeRockets[i];
       rocket.position.addScaledVector(rocket.userData.velocity, delta);
-      rocket.userData.velocity.y -= 9.8 * delta; // Gravity
+      // No gravity for linear horizontal flight
       
       // Look forward
       if(rocket.userData.velocity.lengthSq() > 0.1) {
@@ -169,7 +175,7 @@ export class FirecrackerSystem {
         positions[j*3+1] += vels[j].y * delta;
         positions[j*3+2] += vels[j].z * delta;
         
-        vels[j].y -= 8 * delta; // Drag/gravity
+        vels[j].y -= 10 * delta; // Drag/gravity
       }
       exp.geometry.attributes.position.needsUpdate = true;
       
