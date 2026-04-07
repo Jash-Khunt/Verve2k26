@@ -1,6 +1,6 @@
 import * as THREE from "three";
 
-export function createSponsorScreen(imagePath, targetHeight = 3.0) {
+export function createSponsorScreen(imagePath ) {
   const wrapperGroup = new THREE.Group();
 
   const textureLoader = new THREE.TextureLoader();
@@ -14,7 +14,7 @@ export function createSponsorScreen(imagePath, targetHeight = 3.0) {
     const imgHeight = texture.image.height;
     const aspect = imgWidth / imgHeight;
 
-    const screenHeight = targetHeight;
+    const screenHeight = 5
     const screenWidth = screenHeight * aspect;
     const screenDepth = 0.2; // Robust real-world frame thickness
 

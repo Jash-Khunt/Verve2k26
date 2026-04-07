@@ -72,15 +72,15 @@ export default function App() {
     const sponsorImages = ['/photo/first.png', '/photo/second.png', '/photo/third.jpeg', '/photo/fourth.png', '/photo/fifth.png'];
     
     sponsorImages.forEach((img, i) => {
-      const screen = createSponsorScreen(img, 2.5); // Height fixed at 2.5, width adapts
+      const screen = createSponsorScreen(img);
       
       // Position alternate left and right along the Z axis, starting from character position (z=45)
       const isLeft = i % 2 === 0;
-      const xOffset = isLeft ? -12 : 12;
+      const xOffset = isLeft ? -14 : 14;
       const zOffset = 39 - (i * 12); // Spaced out starting slightly ahead of the character
       
-      screen.position.set(xOffset, 0, zOffset);
-      screen.rotation.y = isLeft ? Math.PI / 6 : -Math.PI / 6;
+      screen.position.set(xOffset, 2.8, zOffset);
+      screen.rotation.y = isLeft ? Math.PI / 4 : -Math.PI / 4;
       
       scene.add(screen);
     });
