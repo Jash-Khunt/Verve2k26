@@ -10,6 +10,7 @@ import { FirecrackerSystem } from "./components/FirecrackerSystem.jsx";
 import HUD from "./components/HUD.jsx";
 import MobileControls from "./components/MobileControls.jsx";
 import { createBalloons, createPlanets } from "./components/AtmosphereAdditions.jsx";
+import { createSponsorScreen } from "./components/SponsorScreen.jsx";
 
 export default function App() {
   const mountRef = useRef(null);
@@ -66,6 +67,23 @@ export default function App() {
     const billboardGroup = createBillboard();
     scene.add(billboardGroup);
     const billboard = billboardGroup.children[0];
+
+    // 📺 REAL SPONSOR SCREENS
+    const sponsorImages = ['/photo/1.png', '/photo/2.png', '/photo/3.jpeg', '/photo/4.png', '/photo/5.png'];
+    
+    sponsorImages.forEach((img, i) => {
+      const screen = createSponsorScreen(img, 2.5); // Height fixed at 2.5, width adapts
+      
+      // Position alternate left and right along the Z axis, starting from character position (z=45)
+      const isLeft = i % 2 === 0;
+      const xOffset = isLeft ? -12 : 12;
+      const zOffset = 39 - (i * 12); // Spaced out starting slightly ahead of the character
+      
+      screen.position.set(xOffset, 0, zOffset);
+      screen.rotation.y = isLeft ? Math.PI / 6 : -Math.PI / 6;
+      
+      scene.add(screen);
+    });
 
     // 🏙️ BUILDINGS
     const buildingsGroup = createBuildings();
