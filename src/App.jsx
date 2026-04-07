@@ -75,7 +75,7 @@ export default function App() {
       const screen = createSponsorScreen(img);
       
       // Position alternate left and right along the Z axis, starting from character position (z=45)
-      const isLeft = i % 2 === 0;
+      const isLeft = i % 2 !== 0;
       const xOffset = isLeft ? -14 : 14;
       const zOffset = 39 - (i * 12); // Spaced out starting slightly ahead of the character
       
