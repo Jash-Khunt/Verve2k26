@@ -69,7 +69,7 @@ export default function App() {
     const billboard = billboardGroup.children[0];
 
     // 📺 REAL SPONSOR SCREENS
-    const sponsorImages = ['/photo/1.png', '/photo/2.png', '/photo/3.jpeg', '/photo/4.png', '/photo/5.png'];
+    const sponsorImages = ['/photo/first.png', '/photo/second.png', '/photo/third.jpeg', '/photo/fourth.png', '/photo/fifth.png'];
     
     sponsorImages.forEach((img, i) => {
       const screen = createSponsorScreen(img, 2.5); // Height fixed at 2.5, width adapts

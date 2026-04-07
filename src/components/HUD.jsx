@@ -1,11 +1,13 @@
 import { useEffect, useState } from "react";
 import "./UI.css";
+import SponsorsPage from "./SponsorsPage.jsx";
 
 export default function HUD() {
   const [firecrackers, setFirecrackers] = useState(0);
   const [activeBuilding, setActiveBuilding] = useState(null);
   const [promptText, setPromptText] = useState(null);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const [showSponsors, setShowSponsors] = useState(false);
 
   useEffect(() => {
     const handleFirecracker = (e) => setFirecrackers(e.detail);
@@ -120,7 +122,7 @@ export default function HUD() {
           <h1>VERVE</h1>
         </div>
         <div className="nav-links">
-          <a href="#">Sponsors</a>
+          <a href="#" onClick={(e) => { e.preventDefault(); setShowSponsors(true); }}>Sponsors</a>
           <a href="#">Contact Us</a>
         </div>
         <div className={`hamburger ${mobileMenuOpen ? "active" : ""}`} onClick={() => setMobileMenuOpen(!mobileMenuOpen)}>
@@ -134,7 +136,7 @@ export default function HUD() {
           <div className="mobile-menu-overlay glass">
               <a href="#" onClick={() => setMobileMenuOpen(false)}>Schedule</a>
               <a href="#" onClick={() => setMobileMenuOpen(false)}>Events</a>
-              <a href="#" onClick={() => setMobileMenuOpen(false)}>Sponsors</a>
+              <a href="#" onClick={(e) => { e.preventDefault(); setMobileMenuOpen(false); setShowSponsors(true); }}>Sponsors</a>
               <a href="#" onClick={() => setMobileMenuOpen(false)}>Contact Us</a>
           </div>
       )}
@@ -222,6 +224,8 @@ export default function HUD() {
           </div>
         </div>
       )}
+
+      {showSponsors && <SponsorsPage onClose={() => setShowSponsors(false)} />}
     </div>
   );
 }
