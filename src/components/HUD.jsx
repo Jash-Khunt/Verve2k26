@@ -1,6 +1,8 @@
 import { useEffect, useState } from "react";
 import "./UI.css";
 import SponsorsPage from "./SponsorsPage.jsx";
+import ContactPage from "./ContactPage.jsx";
+
 
 export default function HUD() {
   const [firecrackers, setFirecrackers] = useState(0);
@@ -8,6 +10,8 @@ export default function HUD() {
   const [promptText, setPromptText] = useState(null);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [showSponsors, setShowSponsors] = useState(false);
+  const [showContact, setShowContact] = useState(false);
+
 
   useEffect(() => {
     const handleFirecracker = (e) => setFirecrackers(e.detail);
@@ -123,7 +127,8 @@ export default function HUD() {
         </div>
         <div className="nav-links">
           <a href="#" onClick={(e) => { e.preventDefault(); setShowSponsors(true); }}>Sponsors</a>
-          <a href="#">Contact Us</a>
+          <a href="#" onClick={(e) => { e.preventDefault(); setShowContact(true); }}>Contact Us</a>
+
         </div>
         <div className={`hamburger ${mobileMenuOpen ? "active" : ""}`} onClick={() => setMobileMenuOpen(!mobileMenuOpen)}>
             <span></span>
@@ -137,8 +142,9 @@ export default function HUD() {
               <a href="#" onClick={() => setMobileMenuOpen(false)}>Schedule</a>
               <a href="#" onClick={() => setMobileMenuOpen(false)}>Events</a>
               <a href="#" onClick={(e) => { e.preventDefault(); setMobileMenuOpen(false); setShowSponsors(true); }}>Sponsors</a>
-              <a href="#" onClick={() => setMobileMenuOpen(false)}>Contact Us</a>
+              <a href="#" onClick={(e) => { e.preventDefault(); setMobileMenuOpen(false); setShowContact(true); }}>Contact Us</a>
           </div>
+
       )}
 
       {/* Modern Game Controls Panel */}
@@ -167,9 +173,10 @@ export default function HUD() {
             <div className="control-item">
                 <div className="mouse-icon">
                     <div className="mouse-wheel"></div>
-                    <div className="mouse-right active"></div>
+                    <div className="mouse-left active"></div>
                 </div>
-                <span className="control-desc">Right Click to Move Camera</span>
+                <span className="control-desc">Left Click to Move Camera</span>
+
             </div>
             
             <div className="control-item">
@@ -226,6 +233,8 @@ export default function HUD() {
       )}
 
       {showSponsors && <SponsorsPage onClose={() => setShowSponsors(false)} />}
+      {showContact && <ContactPage onClose={() => setShowContact(false)} />}
     </div>
+
   );
 }
