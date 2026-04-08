@@ -35,7 +35,9 @@ export default function HUD() {
     };
   }, []);
 
-  const handleLaunch = () => {
+  const handleLaunch = (e) => {
+    if (e && e.preventDefault) e.preventDefault();
+    if (e && e.stopPropagation) e.stopPropagation();
     if (firecrackers > 0) {
       window.dispatchEvent(new CustomEvent("launchFirecracker"));
     }
@@ -62,12 +64,20 @@ export default function HUD() {
     if (type === "headlines") {
         return (
             <div className="panel-content headlines-content">
-                <p>Latest updates from the core of the Verve ecosystem.</p>
-                <div className="image-grid">
-                    <div className="image-placeholder bg-pink">Photo 1</div>
-                    <div className="image-placeholder bg-blue">Photo 2</div>
+                <p className="panel-subtitle">Latest updates from the core of the Verve ecosystem.</p>
+                <div className="news-cards">
+                    <div className="news-card bg-neon-pink">
+                        <span className="news-badge">LATEST</span>
+                        <h4>Cybernetics Track Announced</h4>
+                        <p>Explore the future of man and machine with our new interactive tech labs.</p>
+                    </div>
+                    <div className="news-card bg-neon-blue">
+                        <span className="news-badge">UPDATE</span>
+                        <h4>Guest Speaker Reveal</h4>
+                        <p>Industry leaders are set to take the main stage on Day 2.</p>
+                    </div>
                 </div>
-                <button className="view-all-btn">View All News</button>
+                <button className="cyber-outline-btn mt-4">VIEW ALL NEWS</button>
             </div>
         )
     }
@@ -75,13 +85,17 @@ export default function HUD() {
     if (type === "theme") {
         return (
             <div className="panel-content theme-content">
-                <h3>A VORTEX OF VANDALISM</h3>
-                <p>
-                Step into the Vortex of Vandalism, where the polite silence of the norm is shattered by the raw, electric roar of rebellion. Channeling the gritty soul of counterculture, this year is a riot of unapologetic style, dripping with absolute chaos and punk-fueled energy.
-                </p>
-                <p>
-                We are here to deface the ordinary and embrace the anarchy of the new. It’s time to tear down the establishment and paint the town in the colors of disorder. Welcome to the revolution.
-                </p>
+                <div className="theme-banner">
+                    <h3 className="glitch-heading">A VORTEX OF VANDALISM</h3>
+                </div>
+                <div className="theme-text">
+                    <p>
+                        Step into the Vortex of Vandalism, where the polite silence of the norm is shattered by the raw, electric roar of rebellion. Channeling the gritty soul of counterculture, this year is a riot of unapologetic style, dripping with absolute chaos and punk-fueled energy.
+                    </p>
+                    <p>
+                        We are here to deface the ordinary and embrace the anarchy of the new. It’s time to tear down the establishment and paint the town in the colors of disorder. <span className="highlight-text">Welcome to the revolution.</span>
+                    </p>
+                </div>
             </div>
         )
     }
@@ -89,8 +103,13 @@ export default function HUD() {
     if (type === "about us") {
         return (
             <div className="panel-content about-content">
-                <h3>Who We Are</h3>
-                <p>Verve 2k26 is an amalgamation of technology, culture, and chaos. We are visionaries, designers, hackers, and creators breaking boundaries.</p>
+                <div className="about-header">
+                    <h3 className="cyber-text">Who We Are</h3>
+                </div>
+                <div className="about-body">
+                    <p className="lead-text">Verve 2k26 is an amalgamation of technology, culture, and chaos.</p>
+                    <p>We are visionaries, designers, hackers, and creators breaking boundaries. From rogue algorithms to underground art styles, our community thrives on the edge of innovation. Join us to reshape reality and construct the unimaginable.</p>
+                </div>
             </div>
         )
     }
@@ -98,19 +117,27 @@ export default function HUD() {
     if (type === "history") {
         return (
             <div className="panel-content history-content">
-                <div className="timeline-item">
-                    <h4>2024: The Awakening</h4>
-                    <p>Over 5000+ attendees joined the tech symposium.</p>
-                </div>
-                <div className="timeline-item">
-                    <h4>2025: Cyber Renaissance</h4>
-                    <p>Introduced AI robotics track.</p>
+                <div className="cyber-timeline">
+                    <div className="timeline-node">
+                        <div className="timeline-dot bg-cyan"></div>
+                        <div className="timeline-content">
+                            <h4 className="year-title">2024: The Awakening</h4>
+                            <p>Over 5000+ attendees joined the first tech symposium, laying the groundwork for our cyberpunk reality.</p>
+                        </div>
+                    </div>
+                    <div className="timeline-node">
+                        <div className="timeline-dot bg-magenta"></div>
+                        <div className="timeline-content">
+                            <h4 className="year-title">2025: Cyber Renaissance</h4>
+                            <p>Introduced the AI robotics track, pushing the boundaries of human-machine interaction.</p>
+                        </div>
+                    </div>
                 </div>
             </div>
         )
     }
 
-    return <p>{activeBuilding.description}</p>;
+    return <p className="default-desc">{activeBuilding.description}</p>;
   };
 
   return (
@@ -189,7 +216,7 @@ export default function HUD() {
       </div>
 
       <div className="hud-top">
-        <div className="hud-item" onClick={handleLaunch} style={{cursor: firecrackers > 0 ? "pointer" : "default"}}>
+        <div className="hud-item" onClick={handleLaunch} onTouchStart={handleLaunch} style={{cursor: firecrackers > 0 ? "pointer" : "default"}}>
           <span className="hud-icon">🧨</span>
           <span className="hud-text">x {firecrackers} (Press F)</span>
         </div>
@@ -213,17 +240,17 @@ export default function HUD() {
 
       {activeBuilding && (
         <div className="building-panel-overlay">
-          <div className="building-panel glass custom-scroll" style={{ borderColor: '#' + activeBuilding.color.toString(16), boxShadow: `0 0 30px #${activeBuilding.color.toString(16)}88` }}>
-            <h2 style={{ background: `linear-gradient(to right, #${activeBuilding.color.toString(16)}, #ffffff)` }}>
-              {activeBuilding.title}
-            </h2>
+            <div className="building-panel glass custom-scroll" style={{ borderColor: '#' + activeBuilding.color.toString(16).padStart(6, '0'), boxShadow: `0 0 30px #${activeBuilding.color.toString(16).padStart(6, '0')}88` }}>
+              <h2 style={{ backgroundImage: `linear-gradient(to right, #${activeBuilding.color.toString(16).padStart(6, '0')}, #ffffff)` }}>
+                {activeBuilding.title}
+              </h2>
             
             <div className="panel-inner-content">
                 {renderPanelContent()}
             </div>
 
             <div className="panel-actions">
-              <button className="btn-primary" style={{ background: '#' + activeBuilding.color.toString(16) }}>
+              <button className="btn-primary" style={{ background: '#' + activeBuilding.color.toString(16).padStart(6, '0') }}>
                 {activeBuilding.action}
               </button>
               <button className="btn-secondary" onClick={handleClose}>Close</button>

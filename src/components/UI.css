@@ -372,69 +372,214 @@
     text-align: left;
 }
 
-/* Custom Panel Layouts */
-.theme-content h3, .about-content h3 {
-    color: #fff;
-    margin-top: 0;
-    font-size: 1.5rem;
+/* Custom Panel Layouts - Redesigned */
+
+.panel-content {
+    font-family: 'Rajdhani', sans-serif;
+    color: #e0e0e0;
+    line-height: 1.7;
+    margin-bottom: 25px;
+    animation: popIn 0.4s ease forwards;
+}
+
+.panel-subtitle {
+    font-size: 1.15rem;
+    color: #00f2fe;
+    letter-spacing: 1px;
+    margin-bottom: 20px;
     text-transform: uppercase;
-    letter-spacing: 2px;
+    font-weight: 500;
 }
 
-.theme-content p {
-    font-size: 1.05rem;
-    margin-bottom: 15px;
-    color: #ffd085; /* slight chaotic yellow tint */
-}
-
-.image-grid {
+/* Headlines */
+.news-cards {
     display: flex;
+    flex-direction: column;
     gap: 15px;
     margin: 20px 0;
 }
-.image-placeholder {
-    flex: 1;
-    height: 120px;
-    border-radius: 8px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-weight: bold;
-    color: white;
-}
-.bg-pink { background: #ff006e; }
-.bg-blue { background: #3a86ff; }
 
-.view-all-btn {
-    width: 100%;
-    padding: 10px;
-    background: transparent;
-    border: 1px solid #fff;
-    color: #fff;
-    border-radius: 20px;
-    cursor: pointer;
-    font-weight: bold;
-}
-
-.timeline-item {
-    border-left: 2px solid #00f2fe;
-    padding-left: 20px;
-    margin-bottom: 20px;
+.news-card {
     position: relative;
+    padding: 20px;
+    border-radius: 12px;
+    background: rgba(10, 10, 20, 0.7);
+    border-left: 4px solid transparent;
+    text-align: left;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
 }
-.timeline-item::before {
+
+.news-card.bg-neon-pink {
+    border-left-color: #ff006e;
+    box-shadow: 0 0 15px rgba(255, 0, 110, 0.15);
+}
+
+.news-card.bg-neon-blue {
+    border-left-color: #3a86ff;
+    box-shadow: 0 0 15px rgba(58, 134, 255, 0.15);
+}
+
+.news-card:hover {
+    transform: translateX(5px);
+    box-shadow: 0 0 25px rgba(255, 255, 255, 0.1);
+}
+
+.news-card h4 {
+    margin: 0 0 8px 0;
+    color: #fff;
+    font-size: 1.3rem;
+    font-family: 'Orbitron', sans-serif;
+    letter-spacing: 1.5px;
+}
+
+.news-card p {
+    margin: 0;
+    font-size: 0.95rem;
+    color: #a0a0a0;
+}
+
+.news-badge {
+    position: absolute;
+    top: 10px;
+    right: 15px;
+    font-size: 0.7rem;
+    background: rgba(255, 255, 255, 0.1);
+    padding: 3px 8px;
+    border-radius: 10px;
+    color: #00f2fe;
+    font-weight: bold;
+    letter-spacing: 1px;
+}
+
+.cyber-outline-btn {
+    width: 100%;
+    padding: 12px;
+    background: transparent;
+    border: 1px solid #00f2fe;
+    color: #00f2fe;
+    border-radius: 8px;
+    cursor: pointer;
+    font-size: 1rem;
+    font-weight: bold;
+    font-family: 'Orbitron', sans-serif;
+    letter-spacing: 2px;
+    transition: all 0.3s ease;
+}
+
+.cyber-outline-btn.mt-4 { margin-top: 15px; }
+
+.cyber-outline-btn:hover {
+    background: rgba(0, 242, 254, 0.2);
+    box-shadow: 0 0 20px rgba(0, 242, 254, 0.4);
+    text-shadow: 0 0 8px #00f2fe;
+}
+
+/* Theme Panel */
+.theme-banner {
+    padding: 15px 0;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    margin-bottom: 20px;
+}
+
+.glitch-heading {
+    color: #fff;
+    margin: 0;
+    font-size: 1.8rem;
+    text-transform: uppercase;
+    letter-spacing: 3px;
+    text-shadow: 2px 2px 0px #ff006e, -2px -2px 0px #00f2fe;
+    font-family: 'Orbitron', sans-serif;
+}
+
+.theme-text p {
+    font-size: 1.1rem;
+    margin-bottom: 15px;
+    color: #ffd085; /* slight chaotic yellow tint */
+    text-align: justify;
+}
+
+.theme-text .highlight-text {
+    color: #ff006e;
+    font-weight: bold;
+    text-shadow: 0 0 10px rgba(255, 0, 110, 0.5);
+}
+
+/* About Us */
+.cyber-text {
+    font-family: 'Orbitron', sans-serif;
+    color: #00ffa5;
+    font-size: 1.8rem;
+    letter-spacing: 2px;
+    margin-bottom: 15px;
+    text-shadow: 0 0 15px rgba(0, 255, 165, 0.5);
+}
+
+.about-body p.lead-text {
+    font-size: 1.3rem;
+    color: #fff;
+    font-weight: 500;
+    margin-bottom: 15px;
+    border-left: 3px solid #00ffa5;
+    padding-left: 15px;
+}
+
+/* History Panel */
+.cyber-timeline {
+    display: flex;
+    flex-direction: column;
+    gap: 25px;
+    position: relative;
+    padding-left: 30px;
+    margin-top: 15px;
+}
+
+.cyber-timeline::before {
     content: '';
     position: absolute;
-    left: -6px;
     top: 5px;
-    width: 10px;
-    height: 10px;
-    border-radius: 50%;
-    background: #00f2fe;
+    bottom: 5px;
+    left: 14px;
+    width: 2px;
+    background: rgba(255, 255, 255, 0.2);
 }
-.timeline-item h4 {
-    margin: 0 0 5px 0;
+
+.timeline-node {
+    position: relative;
+    text-align: left;
+}
+
+.timeline-dot {
+    position: absolute;
+    left: -30px;
+    top: 5px;
+    width: 14px;
+    height: 14px;
+    border-radius: 50%;
+    z-index: 2;
+    box-shadow: 0 0 10px currentColor;
+}
+
+.timeline-dot.bg-cyan { background: #00f2fe; color: #00f2fe; }
+.timeline-dot.bg-magenta { background: #ff006e; color: #ff006e; }
+
+.year-title {
+    margin: 0 0 8px 0;
     color: #fff;
+    font-family: 'Orbitron', sans-serif;
+    font-size: 1.2rem;
+    letter-spacing: 1px;
+}
+
+.timeline-content p {
+    margin: 0;
+    color: #ccc;
+    font-size: 1rem;
+}
+
+.default-desc {
+    font-size: 1.2rem;
+    color: #ddd;
+    line-height: 1.6;
 }
 
 .panel-actions {
@@ -543,13 +688,14 @@
 
   .hud-top {
       top: auto;
-      bottom: 20px;
-      right: 50%;
-      transform: translateX(50%);
+      bottom: 80px;
+      right: 40px;
+      left: auto;
+      transform: none;
   }
 
   .cyber-prompt {
-      bottom: 160px;
+      bottom: 270px;
       padding: 10px 15px;
       font-size: 0.9rem;
       width: 90%;
@@ -573,13 +719,14 @@
   width: 100%;
   height: 100%;
   pointer-events: none;
-  z-index: 100;
+  z-index: 5;
 }
 
 .joystick-base {
   position: absolute;
-  bottom: 40px;
+  bottom: 100px;
   left: 40px;
+  right: auto;
   width: 120px;
   height: 120px;
   background: rgba(0, 242, 254, 0.1);
@@ -604,8 +751,9 @@
 
 .action-button.jump-btn {
   position: absolute;
-  bottom: 50px;
+  bottom: 160px;
   right: 40px;
+  left: auto;
   width: 80px;
   height: 80px;
   background: rgba(255, 0, 110, 0.1);
