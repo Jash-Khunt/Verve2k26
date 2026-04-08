@@ -63,17 +63,17 @@ export default function ContactPage({ onClose }) {
                 </div>
 
                 <div className="contact-section-title">
-                    <h3 style={{ color: '#00f2fe', textAlign: 'center', marginBottom: '20px', fontFamily: 'Orbitron, sans-serif', letterSpacing: '2px' }}>EVENT HEADS</h3>
-                </div>
-                <div className="sponsors-row sponsors-row--pair contact-grid">
-                    {EVENT_HEADS.map((item, idx) => <ImageCard key={item.id} item={item} index={idx} />)}
-                </div>
-
-                <div className="contact-section-title" style={{ marginTop: '40px' }}>
-                    <h3 style={{ color: '#00ffa5', textAlign: 'center', marginBottom: '20px', fontFamily: 'Orbitron, sans-serif', letterSpacing: '2px' }}>SAWC COMMITTEE</h3>
+                    <h3 style={{ color: '#00f2fe', textAlign: 'center', marginBottom: '20px', fontFamily: 'Orbitron, sans-serif', letterSpacing: '2px' }}>SAWC COMMITTEE</h3>
                 </div>
                 <div className="sponsors-row sponsors-row--pair contact-grid">
                     {SAWC.map((item, idx) => <ImageCard key={item.id} item={item} index={idx + EVENT_HEADS.length} />)}
+                </div>
+
+                <div className="contact-section-title" style={{ marginTop: '40px' }}>
+                    <h3 style={{ color: '#00ffa5', textAlign: 'center', marginBottom: '20px', fontFamily: 'Orbitron, sans-serif', letterSpacing: '2px' }}>EVENT HEADS</h3>
+                </div>
+                <div className="sponsors-row sponsors-row--pair contact-grid">
+                    {EVENT_HEADS.map((item, idx) => <ImageCard key={item.id} item={item} index={idx} />)}
                 </div>
 
             </div>
