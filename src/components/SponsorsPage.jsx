@@ -1,17 +1,18 @@
 import "./UI.css";
 
 const SPONSORS = [
-    { id: 1, src: "/photo/first.png", title: "Platinum Sponsor", role: "Title Sponsor", glow: "#ff006e" },
-    { id: 2, src: "/photo/second.png", title: "Gold Sponsor", role: "Co-Sponsor", glow: "#3a86ff" },
-    { id: 3, src: "/photo/third.jpeg", title: "Gold Sponsor", role: "Tech Partner", glow: "#00f2fe" },
-    { id: 4, src: "/photo/fourth.png", title: "Silver Sponsor", role: "Media Partner", glow: "#8338ec" },
-    { id: 5, src: "/photo/fifth.png", title: "Silver Sponsor", role: "Beverage Partner", glow: "#00ffa5" }
+    { id: 1, src: "/photo/1.png", title: "Platinum Sponsor", role: "Title Sponsor", glow: "#ff006e" },
+    { id: 2, src: "/photo/2.png", title: "Gold Sponsor", role: "Co-Sponsor", glow: "#3a86ff" },
+    { id: 3, src: "/photo/3.jpeg", title: "Gold Sponsor", role: "Tech Partner", glow: "#00f2fe" },
+    { id: 4, src: "/photo/4.png", title: "Silver Sponsor", role: "Media Partner", glow: "#8338ec" },
+    { id: 5, src: "/photo/5.jpeg", title: "Silver Sponsor", role: "Beverage Partner", glow: "#00ffa5" },
+    { id: 6, src: "/photo/6.png", title: "Silver Sponsor", role: "Beverage Partner", glow: "#00ffa5" }
 ];
 
 export default function SponsorsPage({ onClose }) {
-    const platinum = SPONSORS[0];
-    const gold = SPONSORS.slice(1, 3);
-    const silver = SPONSORS.slice(3, 5);
+    const platinum = SPONSORS.slice(0, 2);
+    const gold = SPONSORS.slice(2, 4);
+    const silver = SPONSORS.slice(4, 6);
 
     return (
         <div className="sponsors-overlay">
@@ -25,18 +26,19 @@ export default function SponsorsPage({ onClose }) {
                 </div>
 
                 {/* Platinum — single centered */}
-                <div className="sponsors-row sponsors-row--single">
-                    <div className="sponsor-card" style={{ '--glow-color': platinum.glow }}>
-                        <div className="sponsor-card-inner">
-                            <div className="sponsor-image-wrapper">
-                                <img src={platinum.src} alt={platinum.role} className="sponsor-image" />
-                            </div>
-                            <div className="sponsor-info">
-                                <h4 style={{ color: platinum.glow }}>{platinum.title}</h4>
-                                <p>{platinum.role}</p>
+                <div className="sponsors-row sponsors-row--pair">
+                    {platinum.map((s) => (
+                        <div className="sponsor-card" key={s.id} style={{ '--glow-color': s.glow }}>
+                            <div className="sponsor-card-inner">
+                                <div className="sponsor-image-wrapper">
+                                    <img src={s.src} alt={s.role} className="sponsor-image" />
+                                </div>
+                                <div className="sponsor-info">
+                                    <p>{s.role}</p>
+                                </div>
                             </div>
                         </div>
-                    </div>
+                    ))}
                 </div>
 
                 {/* Gold — 2 per row */}
@@ -48,7 +50,6 @@ export default function SponsorsPage({ onClose }) {
                                     <img src={s.src} alt={s.role} className="sponsor-image" />
                                 </div>
                                 <div className="sponsor-info">
-                                    <h4 style={{ color: s.glow }}>{s.title}</h4>
                                     <p>{s.role}</p>
                                 </div>
                             </div>
@@ -65,7 +66,6 @@ export default function SponsorsPage({ onClose }) {
                                     <img src={s.src} alt={s.role} className="sponsor-image" />
                                 </div>
                                 <div className="sponsor-info">
-                                    <h4 style={{ color: s.glow }}>{s.title}</h4>
                                     <p>{s.role}</p>
                                 </div>
                             </div>

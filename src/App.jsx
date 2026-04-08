@@ -69,7 +69,7 @@ export default function App() {
     const billboard = billboardGroup.children[0];
 
     // 📺 REAL SPONSOR SCREENS
-    const sponsorImages = ['/photo/first.png', '/photo/second.png', '/photo/third.jpeg', '/photo/fourth.png', '/photo/fifth.png'];
+    const sponsorImages = ['/photo/1.png', '/photo/2.png', '/photo/3.jpeg', '/photo/4.png', '/photo/5.jpeg', '/photo/6.png'];
     
     sponsorImages.forEach((img, i) => {
       const screen = createSponsorScreen(img);
@@ -77,10 +77,10 @@ export default function App() {
       // Position alternate left and right along the Z axis, starting from character position (z=45)
       const isLeft = i % 2 !== 0;
       const xOffset = isLeft ? -14 : 14;
-      const zOffset = 39 - (i * 12); // Spaced out starting slightly ahead of the character
+      const zOffset = 39 - (i * 13); // Spaced out starting slightly ahead of the character
       
       screen.position.set(xOffset, 2.8, zOffset);
-      screen.rotation.y = isLeft ? Math.PI / 4 : -Math.PI / 4;
+      screen.rotation.y = isLeft ? Math.PI / 5 : -Math.PI / 5;
       
       scene.add(screen);
     });
