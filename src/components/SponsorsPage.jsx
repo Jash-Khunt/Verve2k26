@@ -5,7 +5,7 @@ const SPONSORS = [
     { id: 2, src: "/photo/2.png", title: "Yarittu", role: "Clothing Partner", glow: "#3a86ff" },
     { id: 3, src: "/photo/5.jpeg", title: "Meet Makeover", role: "MakeUp Partner", glow: "#8338ec" },
     { id: 4, src: "/photo/4.png", title: "The Old Roastery", role: "Stall Partner", glow: "#00ffa5" },
-    { id: 5, src: "/photo/3.jpeg", title: "Book Heavne", role: "Stall Partner", glow: "#00ffa5" },
+    { id: 5, src: "/photo/3.jpeg", title: "Book Heaven", role: "Stall Partner", glow: "#00ffa5" },
     { id: 6, src: "/photo/6.png", title: "Chetan Immitation", role: "Jewellery Partner", glow: "#00f2fe" }
 ];
 
