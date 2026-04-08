@@ -365,6 +365,7 @@ export default function App() {
       buildingsGroup.userData.update?.(t);
       balloons.userData.update?.(t);
       planets.userData.update?.(t);
+      char.userData.update?.(delta);
       
       firecrackers.update(delta, char.position, () => {
         firecrackerCount++;
