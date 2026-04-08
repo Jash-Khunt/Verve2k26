@@ -5,14 +5,14 @@ import "./UI.css";
 
 const EVENT_HEADS = [
     { id: 1, src: "/eventHead/JeelKhunt.PNG", title: "Jeel Khunt", role: "Event Head", glow: "#ff006e" },
-    { id: 2, src: "/eventHead/Jeel_Donga.jpg.jpeg", title: "Jeel Donga", role: "Event Head", glow: "#3a86ff" },
     { id: 3, src: "/eventHead/DhrumilGabani.jpg", title: "Dhrumil Gabani", role: "Event Head", glow: "#00f2fe" },
+    { id: 2, src: "/eventHead/Jeel_Donga.jpg.jpeg", title: "Jeel Donga", role: "Event Head", glow: "#3a86ff" },
 ];
 
 const SAWC = [
-    { id: 4, src: "/SAWC/krishee.jpg", title: "Krishee", role: "SAWC Committee", glow: "#8338ec" },
-    { id: 5, src: "/SAWC/princeViradiya.jpeg", title: "Prince Viradiya", role: "SAWC Committee", glow: "#00ffa5" },
-    { id: 6, src: "/SAWC/ronak.jpeg", title: "Ronak", role: "SAWC Committee", glow: "#ff006e" },
+    { id: 5, src: "/SAWC/princeViradiya.jpeg", title: "Prince Viradiya", role: "GS", glow: "#00ffa5" },
+    { id: 4, src: "/SAWC/krishee.jpg", title: "Krishee Mehta", role: "LR", glow: "#8338ec" },
+    { id: 6, src: "/SAWC/ronak.jpeg", title: "Ronak Talaviya", role: "CS", glow: "#ff006e" },
 ];
 
 function ImageCard({ item, index }) {
