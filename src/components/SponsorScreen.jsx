@@ -65,10 +65,10 @@ export function createSponsorScreen(imagePath ) {
     // ========================================
     // 3. STAND / POLES SYSTEM
     // ========================================
-    const poleHeight = targetHeight + 1.2; 
-    const baseMat = new THREE.MeshStandardMaterial({ color: 0x111111, metalness: 0.9, roughness: 0.5 });
-    
-    // Cylindrical poles
+      const poleHeight = screenHeight + 1.2; 
+      const baseMat = new THREE.MeshStandardMaterial({ color: 0x111111, metalness: 0.9, roughness: 0.5 });
+      
+      // Cylindrical poles
     const poleGeo = new THREE.CylinderGeometry(0.08, 0.08, poleHeight, 16);
     const poleLeft = new THREE.Mesh(poleGeo, baseMat);
     const poleRight = new THREE.Mesh(poleGeo, baseMat);
