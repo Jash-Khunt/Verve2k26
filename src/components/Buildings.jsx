@@ -94,7 +94,7 @@ export function createBuildings() {
   
   const b2 = createBuilding(
     0x0055ff, 0xaaccff, 
-    "Theme", "A VORTEX OF VANDALISM.", "Explore Theme", 
+    "Theme", "MIDNIGHT BLOOM — Where creativity blossoms at midnight.", "Explore Theme", 
     35, 20, 9, "theme"
   );
 

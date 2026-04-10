@@ -2,6 +2,8 @@ import { useEffect, useState } from "react";
 import "./UI.css";
 import SponsorsPage from "./SponsorsPage.jsx";
 import ContactPage from "./ContactPage.jsx";
+import SchedulePage from "./SchedulePage.jsx";
+import EventsPage from "./EventsPage.jsx";
 
 
 export default function HUD() {
@@ -11,6 +13,8 @@ export default function HUD() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [showSponsors, setShowSponsors] = useState(false);
   const [showContact, setShowContact] = useState(false);
+  const [showSchedule, setShowSchedule] = useState(false);
+  const [showEvents, setShowEvents] = useState(false);
 
 
   useEffect(() => {
@@ -64,51 +68,88 @@ export default function HUD() {
     if (type === "headlines") {
         return (
             <div className="panel-content headlines-content">
-                <p className="panel-subtitle">Latest updates from the core of the Verve ecosystem.</p>
+                <p className="panel-subtitle">What's buzzing at Verve 2k26</p>
                 <div className="news-cards">
                     <div className="news-card bg-neon-pink">
-                        <span className="news-badge">LATEST</span>
-                        <h4>Cybernetics Track Announced</h4>
-                        <p>Explore the future of man and machine with our new interactive tech labs.</p>
+                        <span className="news-badge">🌸 OPEN INVITE</span>
+                        <h4>Everyone Is Welcome!</h4>
+                        <p>Verve 2k26 opens its doors to all — students, artists, creators & dreamers. No boundaries, just pure celebration. Come be part of something extraordinary!</p>
                     </div>
                     <div className="news-card bg-neon-blue">
-                        <span className="news-badge">UPDATE</span>
-                        <h4>Guest Speaker Reveal</h4>
-                        <p>Industry leaders are set to take the main stage on Day 2.</p>
+                        <span className="news-badge">🔥 ANNOUNCEMENT</span>
+                        <h4>Verve 2k26 Is Here!</h4>
+                        <p>The most wonderful cultural extravaganza returns with a breathtaking new theme — Midnight Bloom. Three days of dancing, singing, drama, fashion & a star-studded celebrity night await you.</p>
+                    </div>
+                    <div className="news-card bg-neon-green">
+                        <span className="news-badge">⭐ DAY 3 SPECIAL</span>
+                        <h4>Celebrity Night Confirmed</h4>
+                        <p>The grand finale on April 23rd promises an unforgettable celebrity night. Stay tuned for the big reveal!</p>
+                    </div>
+                    <div className="news-card bg-neon-purple">
+                        <span className="news-badge">🎉 3 DAYS</span>
+                        <h4>21st – 23rd April</h4>
+                        <p>Fashion Show, Music Night, Drama, Dance Battles & the ultimate Celebrity Night — three days packed with non-stop energy and creativity.</p>
                     </div>
                 </div>
-                <button className="cyber-outline-btn mt-4">VIEW ALL NEWS</button>
             </div>
         )
     }
 
     if (type === "theme") {
         return (
-            <div className="panel-content theme-content">
-                <div className="theme-banner">
-                    <h3 className="glitch-heading">A VORTEX OF VANDALISM</h3>
+            <div className="panel-content theme-content midnight-bloom-theme">
+                <div className="theme-banner midnight-banner">
+                    <div className="bloom-petals">
+                        <span className="petal">🌸</span>
+                        <span className="petal">✨</span>
+                        <span className="petal">🌺</span>
+                    </div>
+                    <h3 className="bloom-heading">MIDNIGHT BLOOM</h3>
+                    <div className="bloom-subtitle">Verve 2k26 Theme</div>
                 </div>
-                <div className="theme-text">
+                <div className="theme-text midnight-text">
                     <p>
-                        Step into the Vortex of Vandalism, where the polite silence of the norm is shattered by the raw, electric roar of rebellion. Channeling the gritty soul of counterculture, this year is a riot of unapologetic style, dripping with absolute chaos and punk-fueled energy.
+                        When the world sleeps, creativity awakens. <span className="bloom-highlight">Midnight Bloom</span> is the theme of Verve 2k26 — a celebration of beauty that flourishes in darkness, of art that blossoms when no one is watching.
                     </p>
                     <p>
-                        We are here to deface the ordinary and embrace the anarchy of the new. It’s time to tear down the establishment and paint the town in the colors of disorder. <span className="highlight-text">Welcome to the revolution.</span>
+                        Like a rare flower that blooms only under the midnight sky, this fest is a tribute to the bold, the dreamers, and the ones who dare to shine in the dark. Every performance, every act, every moment is a petal unfolding under the stars.
+                    </p>
+                    <p className="bloom-closing">
+                        🌙 Let the night bloom. Let your talent blossom. <span className="bloom-highlight">Welcome to Midnight Bloom.</span>
                     </p>
                 </div>
             </div>
         )
     }
 
+
     if (type === "about us") {
         return (
             <div className="panel-content about-content">
                 <div className="about-header">
-                    <h3 className="cyber-text">Who We Are</h3>
+                    <h3 className="cyber-text">What is Verve?</h3>
                 </div>
                 <div className="about-body">
-                    <p className="lead-text">Verve 2k26 is an amalgamation of technology, culture, and chaos.</p>
-                    <p>We are visionaries, designers, hackers, and creators breaking boundaries. From rogue algorithms to underground art styles, our community thrives on the edge of innovation. Join us to reshape reality and construct the unimaginable.</p>
+                    <p className="lead-text">Verve is the flagship annual cultural festival — a grand celebration of art, talent, and creative expression.</p>
+                    <p>Every year, Verve brings together thousands of students across colleges for three electrifying days of competition, performance, and pure entertainment. From its humble beginnings, it has grown into one of the most anticipated cultural extravaganzas.</p>
+                    
+                    <div className="about-highlights">
+                        <div className="about-stat">
+                            <span className="stat-icon">🎭</span>
+                            <span className="stat-label">5+ Events</span>
+                        </div>
+                        <div className="about-stat">
+                            <span className="stat-icon">📅</span>
+                            <span className="stat-label">3 Days</span>
+                        </div>
+                        <div className="about-stat">
+                            <span className="stat-icon">🌸</span>
+                            <span className="stat-label">Midnight Bloom</span>
+                        </div>
+                    </div>
+
+                    <p>This year's theme, <strong style={{color: '#c77dff'}}>Midnight Bloom</strong>, captures the essence of beauty that thrives in the dark — creativity, passion, and brilliance that blooms when the world isn't watching.</p>
+                    <p>Whether you dance, sing, act, or simply love the vibe — <strong style={{color: '#00ffa5'}}>Verve is for you.</strong></p>
                 </div>
             </div>
         )
@@ -117,19 +158,34 @@ export default function HUD() {
     if (type === "history") {
         return (
             <div className="panel-content history-content">
+                <p className="panel-subtitle">The Legacy of Verve</p>
                 <div className="cyber-timeline">
                     <div className="timeline-node">
                         <div className="timeline-dot bg-cyan"></div>
                         <div className="timeline-content">
-                            <h4 className="year-title">2024: The Awakening</h4>
-                            <p>Over 5000+ attendees joined the first tech symposium, laying the groundwork for our cyberpunk reality.</p>
+                            <h4 className="year-title">The Beginning</h4>
+                            <p>Verve was born from a simple idea — give students a platform to express, compete, and celebrate. What started as a small cultural gathering quickly became the most talked-about fest on campus.</p>
                         </div>
                     </div>
                     <div className="timeline-node">
                         <div className="timeline-dot bg-magenta"></div>
                         <div className="timeline-content">
-                            <h4 className="year-title">2025: Cyber Renaissance</h4>
-                            <p>Introduced the AI robotics track, pushing the boundaries of human-machine interaction.</p>
+                            <h4 className="year-title">Verve 2k24 — The Awakening</h4>
+                            <p>The fest roared back to life with spectacular performances, packed auditoriums, and a sea of enthusiastic participants. Dance, drama, and music took center stage as Verve proved it was here to stay.</p>
+                        </div>
+                    </div>
+                    <div className="timeline-node">
+                        <div className="timeline-dot bg-gold"></div>
+                        <div className="timeline-content">
+                            <h4 className="year-title">Verve 2k25 — Vortex of Vandalism</h4>
+                            <p>Last year's punk-fueled theme shattered all expectations. With rebellious energy, underground art vibes, and a raw counterculture aesthetic, Verve 2k25 redefined what a college fest could be.</p>
+                        </div>
+                    </div>
+                    <div className="timeline-node">
+                        <div className="timeline-dot bg-bloom"></div>
+                        <div className="timeline-content">
+                            <h4 className="year-title">Verve 2k26 — Midnight Bloom 🌸</h4>
+                            <p>And now, we bloom. This year's theme embraces beauty in the dark — 3 days of fashion, dance, drama, music, and a grand celebrity night. The biggest Verve yet is upon us.</p>
                         </div>
                     </div>
                 </div>
@@ -146,8 +202,8 @@ export default function HUD() {
 
       <div className="navbar">
         <div className="nav-links">
-          <a href="#">Schedule</a>
-          <a href="#">Events</a>
+          <a href="#" onClick={(e) => { e.preventDefault(); setShowSchedule(true); }}>Schedule</a>
+          <a href="#" onClick={(e) => { e.preventDefault(); setShowEvents(true); }}>Events</a>
         </div>
         <div className="nav-logo">
           <h1>VERVE</h1>
@@ -166,8 +222,8 @@ export default function HUD() {
 
       {mobileMenuOpen && (
           <div className="mobile-menu-overlay glass">
-              <a href="#" onClick={() => setMobileMenuOpen(false)}>Schedule</a>
-              <a href="#" onClick={() => setMobileMenuOpen(false)}>Events</a>
+              <a href="#" onClick={(e) => { e.preventDefault(); setMobileMenuOpen(false); setShowSchedule(true); }}>Schedule</a>
+              <a href="#" onClick={(e) => { e.preventDefault(); setMobileMenuOpen(false); setShowEvents(true); }}>Events</a>
               <a href="#" onClick={(e) => { e.preventDefault(); setMobileMenuOpen(false); setShowSponsors(true); }}>Sponsors</a>
               <a href="#" onClick={(e) => { e.preventDefault(); setMobileMenuOpen(false); setShowContact(true); }}>Contact Us</a>
           </div>
@@ -250,7 +306,12 @@ export default function HUD() {
             </div>
 
             <div className="panel-actions">
-              <button className="btn-primary" style={{ background: '#' + activeBuilding.color.toString(16).padStart(6, '0') }}>
+              <button className="btn-primary" style={{ background: '#' + activeBuilding.color.toString(16).padStart(6, '0') }} onClick={() => {
+                const type = activeBuilding.title.toLowerCase();
+                if (type === 'about us') { handleClose(); setShowEvents(true); }
+                else if (type === 'headlines') { handleClose(); setShowSchedule(true); }
+                else handleClose();
+              }}>
                 {activeBuilding.action}
               </button>
               <button className="btn-secondary" onClick={handleClose}>Close</button>
@@ -261,6 +322,8 @@ export default function HUD() {
 
       {showSponsors && <SponsorsPage onClose={() => setShowSponsors(false)} />}
       {showContact && <ContactPage onClose={() => setShowContact(false)} />}
+      {showSchedule && <SchedulePage onClose={() => setShowSchedule(false)} />}
+      {showEvents && <EventsPage onClose={() => setShowEvents(false)} />}
     </div>
 
   );
