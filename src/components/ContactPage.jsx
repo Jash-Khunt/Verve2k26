@@ -6,7 +6,7 @@ import "./UI.css";
 const EVENT_HEADS = [
     { id: 1, src: "/eventHead/JeelKhunt.PNG", title: "Jeel Khunt", role: "Event Head", glow: "#ff006e" },
     { id: 3, src: "/eventHead/DhrumilGabani.jpg", title: "Dhrumil Gabani", role: "Event Head", glow: "#00f2fe" },
-    { id: 2, src: "/eventHead/Jeel_Donga.jpg.jpeg", title: "Jeel Donga", role: "Event Head", glow: "#3a86ff" },
+    { id: 2, src: "/eventHead/Jeel_Donga.png", title: "Jeel Donga", role: "Event Head", glow: "#3a86ff" },
 ];
 
 const SAWC = [
