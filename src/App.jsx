@@ -77,10 +77,10 @@ export default function App() {
       // Position alternate left and right along the Z axis, starting from character position (z=45)
       const isLeft = i % 2 !== 0;
       const xOffset = isLeft ? -14 : 14;
-      const zOffset = 39 - (i * 13); // Spaced out starting slightly ahead of the character
+      const zOffset = 45 - (i * 9); // Spaced out starting slightly ahead of the character
       
-      screen.position.set(xOffset, 2.8, zOffset);
-      screen.rotation.y = isLeft ? Math.PI / 5 : -Math.PI / 5;
+      screen.position.set(xOffset, 0.8, zOffset);
+      screen.rotation.y = isLeft ? Math.PI / 4 : -Math.PI / 4;
       
       scene.add(screen);
     });

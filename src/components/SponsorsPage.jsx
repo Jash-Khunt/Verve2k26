@@ -2,7 +2,7 @@ import "./UI.css";
 
 const SPONSORS = [
     { id: 1, src: "/photo/1.png", title: "On track education by mamta jani", role: "Title Sponsor", glow: "#ff006e" },
-    { id: 2, src: "/photo/2.png", title: "Yarittu", role: "Clothing Partner", glow: "#3a86ff" },
+    { id: 2, src: "/photo/2.png", title: "Yaritu", role: "Clothing Partner", glow: "#3a86ff" },
     { id: 3, src: "/photo/5.jpeg", title: "Meet Makeover", role: "MakeUp Partner", glow: "#8338ec" },
     { id: 4, src: "/photo/4.png", title: "The Old Roastery", role: "Stall Partner", glow: "#00ffa5" },
     { id: 5, src: "/photo/3.jpeg", title: "Book Heaven", role: "Stall Partner", glow: "#00ffa5" },
